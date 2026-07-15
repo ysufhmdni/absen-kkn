@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   Users,
   ShieldCheck,
+  ClipboardList,
   LogOut,
 } from "lucide-react"
 import {
@@ -27,6 +28,11 @@ const menuItems = [
     title: "Dashboard",
     url: "/dashboard/admin",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Kelola Absen",
+    url: "/dashboard/admin",
+    icon: ClipboardList,
   },
   {
     title: "Kelola Peserta",
@@ -74,10 +80,10 @@ export function AppSidebar({
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => {
+              {items.map((item, index) => {
                 const isActive = pathname === item.url
                 return (
-                  <SidebarMenuItem key={item.url}>
+                  <SidebarMenuItem key={`${item.url}-${index}`}>
                     <SidebarMenuButton
                       isActive={isActive}
                       render={
