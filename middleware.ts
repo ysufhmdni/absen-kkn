@@ -33,6 +33,9 @@ export default auth((req) => {
   if (isUserArea && role !== "USER") {
     return NextResponse.redirect(new URL("/dashboard/admin", req.url))
   }
+  if (isAdminArea && !["ADMIN", "SUPERADMIN"].includes(role as string)) {
+  return NextResponse.redirect(new URL("/dashboard/user", req.url))
+}
 })
 
 export const config = {
