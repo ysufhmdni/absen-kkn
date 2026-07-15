@@ -69,7 +69,12 @@ export function AddAdminDialog() {
 
           <div className="grid gap-2">
             <Label>Role</Label>
-            <Select value={role} onValueChange={setRole}>
+           <Select
+  value={role}
+  onValueChange={(value) => {
+    if (value) setRole(value)
+  }}
+>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
