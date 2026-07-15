@@ -100,6 +100,7 @@ function AbsenRow({ attendance }: { attendance: Attendance }) {
     <Button
   variant="outline"
   size="sm"
+  nativeButton={false}
   render={
     <Link href={`/dashboard/admin/absen/${attendance.id}/edit`} />
   }

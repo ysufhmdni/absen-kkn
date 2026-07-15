@@ -38,6 +38,7 @@ export async function updateAbsenStatus(
     data: { status: newStatus },
   })
 
+  revalidatePath("/dashboard/admin/absen")
   revalidatePath("/dashboard/admin")
 
   return { success: true, message: "Status absen berhasil diubah" }
@@ -61,6 +62,7 @@ export async function deleteAbsen(attendanceId: string) {
     where: { id: attendanceId },
   })
 
+  revalidatePath("/dashboard/admin/absen")
   revalidatePath("/dashboard/admin")
 
   return { success: true, message: "Data absen berhasil dihapus" }

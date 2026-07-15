@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/table"
 import { DateFilter } from "@/components/dashboard/date-filter"
 import { ExportReportButton } from "@/components/dashboard/export-report-button"
-import { submitAbsen } from "@/app/dashboard/user/actions"
+import { recordAttendance } from "@/lib/attendance"
 import { getCurrentSession } from "@/lib/attendance-window"
 
 export const revalidate = 0 // selalu ambil data terbaru setiap request
@@ -32,12 +32,13 @@ export default async function AdminDashboardPage({
   const { date: dateParam } = await searchParams
 
   // Auto-absen untuk ADMIN/SUPERADMIN setiap buka dashboard, kalau lagi jam absen
-  if (
-    (session?.user?.role === "ADMIN" || session?.user?.role === "SUPERADMIN") &&
-    getCurrentSession()
-  ) {
-    await submitAbsen()
-  }
+ if (
+  (session?.user?.role === "ADMIN" || session?.user?.role === "SUPERADMIN") &&
+  getCurrentSession() &&
+  session?.user?.id
+) {
+  await recordAttendance(session.user.id)
+}
 
   const selectedDate = dateParam ? new Date(dateParam) : new Date()
   const startOfDay = new Date(
