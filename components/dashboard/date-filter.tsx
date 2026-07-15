@@ -41,7 +41,6 @@ export function DateFilter({ selectedDate }: { selectedDate: Date }) {
           mode="single"
           selected={selectedDate}
           onSelect={handleSelect}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
