@@ -31,7 +31,7 @@ const menuItems = [
   },
   {
     title: "Kelola Absen",
-    url: "/dashboard/admin",
+    url: "/dashboard/admin/absen",
     icon: ClipboardList,
   },
   {
@@ -80,10 +80,10 @@ export function AppSidebar({
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item, index) => {
+              {items.map((item) => {
                 const isActive = pathname === item.url
                 return (
-                  <SidebarMenuItem key={`${item.url}-${index}`}>
+                  <SidebarMenuItem key={item.url}>
                     <SidebarMenuButton
                       isActive={isActive}
                       render={
