@@ -11,6 +11,16 @@ export default auth((req) => {
 
   const isAdminArea = path.startsWith("/dashboard/admin")
   const isUserArea = path.startsWith("/dashboard/user")
+  const isLoginPage = path.startsWith("/login")
+
+  // Sudah login tapi buka /login -> lempar ke dashboard sesuai role
+  if (isLoggedIn && isLoginPage) {
+    const target =
+      role === "ADMIN" || role === "SUPERADMIN"
+        ? "/dashboard/admin"
+        : "/dashboard/user"
+    return NextResponse.redirect(new URL(target, req.url))
+  }
 
   if (!isLoggedIn && (isAdminArea || isUserArea)) {
     return NextResponse.redirect(new URL("/login", req.url))
@@ -26,5 +36,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/login"],
 }
