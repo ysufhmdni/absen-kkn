@@ -96,22 +96,26 @@ function AbsenRow({ attendance }: { attendance: Attendance }) {
         })}
       </TableCell>
       <TableCell className="text-right">
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" size="sm" asChild>
-            <Link href={`/dashboard/admin/absen/${attendance.id}/edit`}>
-              Edit
-            </Link>
-          </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={handleDelete}
-            disabled={isPending}
-          >
-            Hapus
-          </Button>
-        </div>
-      </TableCell>
+  <div className="flex justify-end gap-2">
+    <Button
+  variant="outline"
+  size="sm"
+  render={
+    <Link href={`/dashboard/admin/absen/${attendance.id}/edit`} />
+  }
+>
+  Edit
+</Button>
+    <Button
+      variant="destructive"
+      size="sm"
+      onClick={handleDelete}
+      disabled={isPending}
+    >
+      Hapus
+    </Button>
+  </div>
+</TableCell>
     </TableRow>
   )
 }
