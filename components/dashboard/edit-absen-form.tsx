@@ -88,7 +88,13 @@ export function EditAbsenForm({
 
       <div>
         <label className="text-sm font-medium mb-2 block">Status Absen</label>
-        <Select value={status} onValueChange={setStatus} disabled={isPending}>
+        <Select
+          value={status}
+          onValueChange={(value) => {
+            if (value !== null) setStatus(value)
+          }}
+          disabled={isPending}
+        >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
