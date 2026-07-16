@@ -25,26 +25,6 @@ const stats = [
   { label: "Proker", value: "Gaada Proker Kita mah" },
 ];
 
-const features = [
-  {
-    icon: KeyRound,
-    title: "Single Sign-On",
-    description:
-      "Satu login untuk seluruh aplikasi internal Pupuk Kujang — dari ERP, e-office, hingga sistem produksi. Tidak ada lagi kata sandi terpisah per sistem.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Kontrol akses berbasis peran",
-    description:
-      "Hak akses mengikuti jabatan dan unit kerja. Saat seseorang pindah divisi, aksesnya menyesuaikan otomatis — tidak tertinggal, tidak berlebihan.",
-  },
-  {
-    icon: ScrollText,
-    title: "Jejak audit menyeluruh",
-    description:
-      "Setiap permintaan, persetujuan, dan perubahan akses tercatat dan dapat ditelusuri, siap untuk kebutuhan audit internal maupun eksternal.",
-  },
-];
 
 const flow = [
   { step: "01", title: "Ajukan akses", body: "Karyawan mengajukan akses sistem lewat portal, lengkap dengan alasan penggunaan." },
@@ -117,6 +97,7 @@ export default function Home() {
           </h1>
           <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted-foreground">
             Cita cita kamu apa? Pilot. Kalo kamu? hmmmmmmm sama kamuu
+            Jangan macem macem sama kita berdua (API & UCUP). Sok geura absen atuh ah well.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button size="lg">
@@ -138,30 +119,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="fitur" className="container py-24 md:py-32">
-        <div className="max-w-xl">
-          <span className="font-mono text-xs uppercase tracking-wide text-accent">
-            Fitur utama
-          </span>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-balance md:text-4xl">
-            Dibuat untuk cara Pupuk Kujang bekerja.
-          </h2>
-        </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {features.map((f) => (
-            <Card key={f.title} className="bg-panel">
-              <CardHeader>
-                <f.icon className="h-5 w-5 text-accent" strokeWidth={1.75} />
-                <CardTitle className="mt-3">{f.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>{f.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
 
 
       {/* CTA */}
@@ -182,24 +139,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-border/60">
-        <div className="container flex flex-col items-center justify-between gap-4 py-8 text-sm text-muted-foreground md:flex-row">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-accent" />
-            <span>Built by Ucup dan Api Ganteng Banget asik asik joss.</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="#" className="transition-colors hover:text-foreground">
-              Jangan macem macem sama kita berdua.
-            </Link>
-            <Link href="#" className="transition-colors hover:text-foreground">
-              Cita cita kamu apa?
-            </Link>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
