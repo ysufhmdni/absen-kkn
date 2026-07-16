@@ -1,13 +1,20 @@
 export type SessionType = "PAGI" | "MALAM"
 
-export function getCurrentSession(): SessionType | null {
+function getJakartaTime(): Date {
   const now = new Date()
-  const hour = now.getHours()
-  const minute = now.getMinutes()
+  // Konversi ke waktu Jakarta (WIB, UTC+7) apapun timezone server-nya
+  const jakartaString = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" })
+  return new Date(jakartaString)
+}
+
+export function getCurrentSession(): SessionType | null {
+  const jakartaNow = getJakartaTime()
+  const hour = jakartaNow.getHours()
+  const minute = jakartaNow.getMinutes()
   const totalMinutes = hour * 60 + minute
 
-  const pagiStart = 12 * 60
-  const pagiEnd = 13 * 60
+  const pagiStart = 6 * 60
+  const pagiEnd = 7 * 60
   const malamStart = 20 * 60
   const malamEnd = 21 * 60
 
@@ -18,6 +25,6 @@ export function getCurrentSession(): SessionType | null {
 }
 
 export function getTodayDateOnly(): Date {
-  const now = new Date()
-  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+  const jakartaNow = getJakartaTime()
+  return new Date(Date.UTC(jakartaNow.getFullYear(), jakartaNow.getMonth(), jakartaNow.getDate()))
 }
