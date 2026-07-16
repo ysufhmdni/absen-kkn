@@ -45,17 +45,6 @@ export default function Home() {
               KKN Taringgul Tonggoh 2026
             </span>
           </div>
-          <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <Link href="#fitur" className="transition-colors hover:text-foreground">
-              Fitur
-            </Link>
-            <Link href="#alur" className="transition-colors hover:text-foreground">
-              Alur Akses
-            </Link>
-            <Link href="#keamanan" className="transition-colors hover:text-foreground">
-              Keamanan
-            </Link>
-          </nav>
           <Button
             variant="outline"
             size="sm"
