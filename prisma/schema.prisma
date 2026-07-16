@@ -11,6 +11,7 @@ model User {
   id          String       @id @default(cuid())
   nim         String       @unique
   name        String
+  prodi       String?
   divisi      String?
   role        Role         @default(USER)
   attendances Attendance[]
