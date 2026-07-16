@@ -23,6 +23,25 @@ import { getCurrentSession } from "@/lib/attendance-window"
 
 export const revalidate = 0 // selalu ambil data terbaru setiap request
 
+const JAKARTA_TZ = "Asia/Jakarta"
+const JAKARTA_OFFSET_MS = 7 * 60 * 60 * 1000 // WIB = UTC+7
+
+// Ambil tahun/bulan/tanggal versi Jakarta, baik dari dateParam ("YYYY-MM-DD")
+// maupun dari waktu "sekarang".
+function getJakartaDateParts(dateParam?: string) {
+  if (dateParam) {
+    const [year, month, day] = dateParam.split("-").map(Number)
+    return { year, month: month - 1, day }
+  }
+  const now = new Date()
+  const jakartaNow = new Date(now.getTime() + JAKARTA_OFFSET_MS)
+  return {
+    year: jakartaNow.getUTCFullYear(),
+    month: jakartaNow.getUTCMonth(),
+    day: jakartaNow.getUTCDate(),
+  }
+}
+
 export default async function AdminDashboardPage({
   searchParams,
 }: {
@@ -32,21 +51,22 @@ export default async function AdminDashboardPage({
   const { date: dateParam } = await searchParams
 
   // Auto-absen untuk ADMIN/SUPERADMIN setiap buka dashboard, kalau lagi jam absen
- if (
-  (session?.user?.role === "ADMIN" || session?.user?.role === "SUPERADMIN") &&
-  getCurrentSession() &&
-  session?.user?.id
-) {
-  await recordAttendance(session.user.id)
-}
+  if (
+    (session?.user?.role === "ADMIN" || session?.user?.role === "SUPERADMIN") &&
+    getCurrentSession() &&
+    session?.user?.id
+  ) {
+    await recordAttendance(session.user.id)
+  }
 
-  const selectedDate = dateParam ? new Date(dateParam) : new Date()
-  const startOfDay = new Date(
-    Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate())
-  )
-  const endOfDay = new Date(
-    Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), 23, 59, 59, 999)
-  )
+  const { year, month, day } = getJakartaDateParts(dateParam)
+
+  // Representasi tanggal terpilih (untuk ditampilkan di DateFilter)
+  const selectedDate = new Date(Date.UTC(year, month, day))
+
+  // Awal & akhir hari dalam zona waktu Jakarta, dikonversi ke UTC untuk query Prisma
+  const startOfDay = new Date(Date.UTC(year, month, day, 0, 0, 0) - JAKARTA_OFFSET_MS)
+  const endOfDay = new Date(Date.UTC(year, month, day, 23, 59, 59, 999) - JAKARTA_OFFSET_MS)
 
   const [totalPeserta, attendances] = await Promise.all([
     prisma.user.count({
@@ -181,6 +201,7 @@ export default async function AdminDashboardPage({
                         {new Date(a.checkInAt).toLocaleTimeString("id-ID", {
                           hour: "2-digit",
                           minute: "2-digit",
+                          timeZone: JAKARTA_TZ,
                         })}
                       </TableCell>
                     </TableRow>
