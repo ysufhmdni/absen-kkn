@@ -89,7 +89,7 @@ export default function Home() {
             Jangan macem macem sama kita berdua (API & UCUP). Sok geura absen atuh ah well.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button size="lg">
+            <Button size="lg" render={<Link href="login" />}>
               Lanjut Absen
               <ArrowRight className="h-4 w-4" />
             </Button>
