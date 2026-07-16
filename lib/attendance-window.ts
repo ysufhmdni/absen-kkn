@@ -13,8 +13,8 @@ export function getCurrentSession(): SessionType | null {
   const minute = jakartaNow.getMinutes()
   const totalMinutes = hour * 60 + minute
 
-  const pagiStart = 6 * 60
-  const pagiEnd = 7 * 60
+  const pagiStart = 12 * 60
+  const pagiEnd = 14 * 60
   const malamStart = 20 * 60
   const malamEnd = 21 * 60
 
