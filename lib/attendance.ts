@@ -12,7 +12,7 @@ export async function recordAttendance(userId: string): Promise<RecordAttendance
   if (!currentSession) {
     return {
       success: false,
-      message: "Di luar jam absen. Absen pagi: 11:00–18:00, absen malam: 20:00–21:00",
+      message: "Di luar jam absen. Absen pagi: 06:00–07:00, absen malam: 20:00–21:00",
     }
   }
 
