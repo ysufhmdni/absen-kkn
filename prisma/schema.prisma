@@ -8,15 +8,24 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  nim       String   @unique
-  name      String
-  divisi    String
-  prodi     String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-
+  id          String       @id @default(cuid())
+  nim         String       @unique
+  name        String
+  divisi      String?
+  role        Role         @default(USER)
   attendances Attendance[]
+}
+
+model Attendance {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime  @db.Date
+  session   Session
+  status    Status    @default(hadir)
+  checkInAt DateTime  @default(now())
+
+  @@unique([userId, date, session], name: "userId_date_session")
 }
 
 enum Role {
@@ -25,20 +34,13 @@ enum Role {
   SUPERADMIN
 }
 
-model Attendance {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  date      DateTime @db.Date
-  session   Session
-  checkInAt DateTime @default(now())
-  status    String   @default("hadir")
-  location  String?
-
-  @@unique([userId, date, session])
-}
-
 enum Session {
   PAGI
   MALAM
+}
+
+enum Status {
+  hadir
+  izin
+  alpha
 }
