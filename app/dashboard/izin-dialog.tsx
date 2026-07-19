@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog"
 import { ajukanIzin } from "@/lib/actions/izin"
 import { Session } from "@prisma/client"
-import { toast } from "sonner" // sesuaikan dengan lib toast yang dipakai
+import { toast } from "sonner"
 
 interface IzinDialogProps {
   session: Session
