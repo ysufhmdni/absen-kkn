@@ -41,11 +41,15 @@ export function IzinDialog({ session, label }: IzinDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
-          Izin {label}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+  render={
+    <Button size="lg" className="w-full">
+      Izin {label}
+    </Button>
+  }
+>
+  Izin {label}
+</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Ajukan Izin — {label}</DialogTitle>
